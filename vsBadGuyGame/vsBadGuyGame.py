@@ -53,7 +53,7 @@ class Badguy:
         
 
     
-    def off_bottom_screen(self):
+    def off_bottom_screen(self): # Once a badguy makes it off the bottom of the screen, remove from list
         return self.y > 640
 
     def touching(self, missile):
@@ -133,7 +133,7 @@ while 1:
     while i < len(missiles):
         missiles[i].move()
         missiles[i].draw()
-        if missiles[i].off_bottom_screen():
+        if missiles[i].off_bottom_screen(): # Once a badguy makes it off the bottom of the screen, remove from list
             del missiles[i]
             i -= 1
         i += 1
