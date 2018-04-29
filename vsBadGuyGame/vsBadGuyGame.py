@@ -55,7 +55,9 @@ class Badguy:
 
 
     def draw(self):
-        screen.blit(badguy_image,(self.x,self.y))
+        screen.blit(badguy_image,(self.x,self.y)) # screen.blit has 2 arguments...
+                                                  # 1st argument, image/text to 'blit'/display...
+                                                  # 2nd argument, position of the top left corner in relation to surface/window
         
 
     
@@ -163,7 +165,12 @@ while 1:
     fighter.move()
     fighter.draw()
 
-    screen.blit(font.render("Score: "+str(score),True,(255,255,255)),(5,5))
+    screen.blit(font.render("Score: "+str(score),True,(255,255,255)),(5,5)) # font.render takes 3 arguments...
+                                                                            # 1st argument, stuff to be rendered...
+                                                                           # 2nd argument, switch on Antialiasing (True/False)...
+                                                                            # 3rd argument, colour of the text (in this case it is white)
+
+
 
 
     pygame.display.update()
