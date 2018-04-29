@@ -157,6 +157,7 @@ while 1:
         missiles[i].draw()
         if missiles[i].off_bottom_screen(): # Once a badguy makes it off the bottom of the screen, remove from list
             del missiles[i]
+            misses +=1
             i -= 1
         i += 1
 
@@ -166,6 +167,7 @@ while 1:
         while j <len(missiles):
             if badguys[i].touching(missiles[j]):
                 badguys[i].score() # this calls the score function
+                hits +=1
                 del badguys[i]
                 del missiles[j]
                 i -=1
@@ -186,6 +188,13 @@ while 1:
     for badguy in badguys:
         if fighter.hit_by(badguy):
             screen.blit(GAME_OVER,(170,200))
+
+            screen.blit(font.render(str(shots),True,(255,255,255)), (266,320))  # lines 192 - 196 place relevant data on Game Over image
+            screen.blit(font.render(str(score),True,(255,255,255)), (266,348))
+            screen.blit(font.render(str(hits),True,(255,255,255)), (400,320))
+            screen.blit(font.render(str(misses),True,(255,255,255)), (400,337))
+            screen.blit(font.render(str(100*hits/shots)+ "%",True,(255,255,255)), (400,357))
+            
             while 1:
                 for event in pygame.event.get():
                     if event.type == QUIT
