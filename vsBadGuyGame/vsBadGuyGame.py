@@ -10,9 +10,13 @@ fighter_image = pygame.image.load("images/fighter.png").convert()
 fighter_image.set_colorkey((255,255,255))
 missile_image = pygame.image.load("images/missile.png").convert()
 missile_image.set_colorkey((255,255,255))
+GAME_OVER = pygame.image.load("images/gameover.png").convert()
 last_badguy_spawn_time = 0
 
 score = 0 # Set score variable 
+shots = 0 # Initialise number of shots taken
+hits = 0 # Initialise number of missiles on target
+misses = 0 # Initialise number of missiles that miss
 font = pygame.font.Font(None,20) # Set font variable to display score...Note syntax
 
 
@@ -77,7 +81,17 @@ class Fighter:
         if pressed_keys[K_RIGHT] and self.x <540:
             self.x +=3
 
+    def hit_by(self,badguy):
+        return(                             # These lines (81 - 85) have been formatted in this way..
+            badguy.y > 546 and              # to show that lines can be spread over multiples...
+            badguy.x < self.x - 70 and      # Python 'knows' that anything between parenthesis is one line.
+            badguy.x < self.x + 100
+            )
+
+
     def fire(self):
+        global shots
+        shots +=1
         missiles.append(Missile(self.x + 50))
 
 
@@ -169,12 +183,19 @@ while 1:
                                                                             # 1st argument, stuff to be rendered...
                                                                            # 2nd argument, switch on Antialiasing (True/False)...
                                                                             # 3rd argument, colour of the text (in this case it is white)
-
+    for badguy in badguys:
+        if fighter.hit_by(badguy):
+            screen.blit(GAME_OVER,(170,200))
+            while 1:
+                for event in pygame.event.get():
+                    if event.type == QUIT
+                    sys.exit()
+                pygame.display.update()
 
 
 
     pygame.display.update()
-
+    
     # This is just a comment added to see what Git Hub will do
     # Don't quite know what I was expecting? Probably that the system would 'sense' changes and inform me that a 'sync' would be needed.
     # Added to further test GitHub - 20180414
