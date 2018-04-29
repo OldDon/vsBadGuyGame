@@ -12,8 +12,8 @@ missile_image = pygame.image.load("images/missile.png").convert()
 missile_image.set_colorkey((255,255,255))
 last_badguy_spawn_time = 0
 
-score = 0
-font = pygame.font.Font(None,20)
+score = 0 # Set score variable 
+font = pygame.font.Font(None,20) # Set font variable to display score...Note syntax
 
 
 
@@ -47,6 +47,12 @@ class Badguy:
         if self.x <0 or self.x >570:
             self.dx *=-1
 
+    def score(self):
+        global score # global allows a variable to be changed from...
+                     # outside the funtion or class it was created in
+        score += 100                    
+    
+
 
     def draw(self):
         screen.blit(badguy_image,(self.x,self.y))
@@ -54,7 +60,7 @@ class Badguy:
 
     
     def off_bottom_screen(self): # Once a badguy makes it off the bottom of the screen, remove from list
-        return self.y > 640
+        return self.y > 640 # This is testing for the bottom of the game window. 'screen' variable is set to 640, 650. See setup at top of file.
 
     def touching(self, missile):
         return (self.x+35-missile.x)**2+(self.y+22-missile.y)**2<1225
@@ -143,6 +149,7 @@ while 1:
         j = 0
         while j <len(missiles):
             if badguys[i].touching(missiles[j]):
+                badguys[i].score() # this calls the score function
                 del badguys[i]
                 del missiles[j]
                 i -=1
@@ -155,6 +162,9 @@ while 1:
 
     fighter.move()
     fighter.draw()
+
+    screen.blit(font.render("Score: "+str(score),True,(255,255,255)),(5,5))
+
 
     pygame.display.update()
 
