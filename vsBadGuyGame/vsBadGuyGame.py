@@ -209,3 +209,5 @@ while 1:
     # Don't quite know what I was expecting? Probably that the system would 'sense' changes and inform me that a 'sync' would be needed.
     # Added to further test GitHub - 20180414
     # Another - 20180414
+
+# Added to make simple change to this file
